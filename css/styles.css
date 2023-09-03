@@ -1,0 +1,74 @@
+@font-face {
+    font-family: saira;
+    src: url(./fonts/SairaCondensed-Bold.ttf);
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100svh;
+    height: 100vh;
+    margin: 0;
+}
+
+nav {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    height: 60px
+}
+
+nav > #title {
+    display: grid;
+    place-items: center;
+    font-size: 40px;
+    margin-left: 3px;
+    font-family: saira;
+}
+
+nav > #hamburger {
+    height: 90%;
+    width: 30px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+nav > #hamburger > .line {
+    color: white;
+    border-bottom: 2px solid white;
+    height: 8px;
+    width: 100%;
+}
+
+main {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+}
+
+#mainContent {
+    height: 100%;
+}
+
+/* Login/Registration section */
+
+#logOrRegSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+#logOrRegSection > h1 {
+    font-size: 40px;
+    margin: 0;
+}

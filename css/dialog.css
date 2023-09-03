@@ -1,0 +1,29 @@
+#dialogCover {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    z-index: 0;
+}
+
+#closeDOM {
+    width: 20%;
+    height: 100%;
+}
+
+#dialogContent {
+    background-color: white;
+    height: 100%;
+    width: 80%;
+    position: relative;
+    left: 100%;
+    font-size: 28px;
+    transition: left 500ms;
+    z-index: 2;
+}
