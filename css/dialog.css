@@ -26,4 +26,6 @@
     font-size: 28px;
     transition: left 500ms;
     z-index: 2;
+    padding-left: 15px;
+    box-sizing: border-box;
 }

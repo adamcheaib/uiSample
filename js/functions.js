@@ -1,8 +1,10 @@
 const prefix = "https://teaching.maumt.se/apis/SR/v1/";
 
-async function fetchFunction(link, method, body = "") {
+async function fetchFunction(link, method, details) {
+
     switch (method) {
         case "GET": {
+            console.log("ITS GET")
             try {
                 const response = await fetch(link);
                 const resource = await response.json();
@@ -17,12 +19,19 @@ async function fetchFunction(link, method, body = "") {
         }
             
         case "POST": {
+            const postLink = {
+                method: "POST",
+                headers: { "Content-type": "application/json; charset=UTF-8" },
+                body: JSON.stringify(details)
+                }
             try {
-                const response = await fetch(link, body);
+                const response = await fetch(link, postLink);
                 const resource = await response.json();
                 
                 if (response.ok) {
-                    console.log("REGISTERED");
+                    console.log(resource);
+                } else {
+                    console.log(resource);
                 }
             } catch (error) {
                 alert("ERROR REG");
@@ -32,7 +41,7 @@ async function fetchFunction(link, method, body = "") {
         
         case "DELETE": {
             try {
-                const response = await fetch(link, body);
+                const response = await fetch(link, details);
                 const resource = await response.json();
 
                 if (response.ok) {
@@ -51,6 +60,15 @@ async function fetchFunction(link, method, body = "") {
     }
 }
 
+async function generateHomePage() {
+    document.getElementById("mainContent").innerHTML = `
+    <h1>Welcome to Series Rater!</h1>
+    <p>This is where you can discover series, save series, and see what other people like to watch!</p>
+    `;
+
+    document.querySelector("#dialogCover").remove();
+}
+
 function menuSlide(event) {
     const dialogCover = document.createElement("div");
     dialogCover.id = "dialogCover";
@@ -64,7 +82,7 @@ function menuSlide(event) {
     dialogCover.appendChild(closeDOM);
     
     dialogContent.innerHTML = `
-    <h2>Menu</h2>
+    <h2 style="margin: 0; text-align: center;">Menu</h2>
     <hr>
     <div id="menuHome">Home</div>
     <div id="menuSeries">Series</div>`;
@@ -81,6 +99,8 @@ function menuSlide(event) {
             dialogCover.remove();
         } )
     }
+
+    dialogContent.querySelector("#menuHome").addEventListener("click", generateHomePage);
     
     closeDOM.addEventListener("click", (cover) => {
         dialogCover.remove();
@@ -93,7 +113,7 @@ function menuSlide(event) {
 
 function generateSignUpForm(event) {
     document.getElementById("mainContent").innerHTML = `
-    <section id="logOrRegSection" class="login">
+    <section id="logOrRegSection">
     <h1>Create account</h1>
     <input type="text" id="usernameInput" placeholder="Username">
     <input type="password" id="passwordInput" placeholder="Password">
@@ -111,12 +131,6 @@ function generateSignUpForm(event) {
     const mauID = document.getElementById("mauID");
 
     const submitButton = document.querySelector("#mainContent > #logOrRegSection > button");
-    const userDetails = {
-        action: "register_user",
-        user_name: usernameInput.value,
-        password: passwordInput.value,
-        mau_id: mauID.value
-    }
     // submitButton.addEventListener("click", () => fetchFunction(prefix, "POST", userDetails));
     submitButton.addEventListener("click", () => {
         if (passwordInput.value !== repeatedPassword.value) {
@@ -124,8 +138,16 @@ function generateSignUpForm(event) {
             document.querySelectorAll("#logOrRegSection > input:not(#usernameInput)").forEach(input => input.value = "");
             return;
         }
+        
+        const userDetails = {
+            action: "register_user",
+            user_name: usernameInput.value,
+            password: passwordInput.value,
+            mau_id: mauID.value
+        }
 
-        // Send the user here!!
+        console.log(userDetails);
+        fetchFunction(prefix, "POST", userDetails);
     });
 }
 
@@ -142,6 +164,6 @@ function generateSignInForm(event) {
 
     document.querySelector("#mainContent > #logOrRegSection > #switchLogReg").addEventListener("click", generateSignUpForm);
     const submitButton = document.querySelector("#mainContent > #logOrRegSection > button");
-    submitButton.addEventListener("click", () => fetchFunction(prefix + "?series", "GET"));
+    // submitButton.addEventListener("click", () => fetchFunction(prefix + "?series", "GET"));
 
 }

@@ -54,6 +54,7 @@ main {
 
 #mainContent {
     height: 100%;
+    padding-inline: 20px;
 }
 
 /* Login/Registration section */
